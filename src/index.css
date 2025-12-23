@@ -1,0 +1,282 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Google Fonts Import */
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&family=Playfair+Display:wght@600;700&family=Poppins:wght@300;400;500;600;700&display=swap');
+
+/* ========================================
+   CSS Custom Properties (Variables)
+   ======================================== */
+:root {
+  /* Gradient Text Colors */
+  --gradient-left: #4c3035;
+  --gradient-mid: #5b3e75;
+  --gradient-right: #3e4b60;
+  
+  /* Brand Colors */
+  --brand-red: #dc2626;
+  --brand-red-dark: #b91c1c;
+  --brand-rose: #f43f5e;
+  --menu-blue: #1e417c;
+  
+  /* UI Colors */
+  --bg-primary: #ffffff;
+  --bg-secondary: #f8f6fa;
+  --text-primary: #1f2937;
+  --text-secondary: #6b7280;
+  
+  /* Shadows */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* Base Styles */
+* {
+  font-family: 'Poppins', sans-serif;
+}
+
+/* Custom Utilities */
+@layer utilities {
+  .brand-text {
+    font-family: 'Playfair Display', serif;
+  }
+  
+  .nav-script {
+    font-family: 'Dancing Script', cursive;
+  }
+}
+
+/* Custom Component Styles */
+@layer components {
+  /* ========================================
+     Gradient Text Utility
+     ======================================== */
+  .gradient-text {
+    background: linear-gradient(
+      90deg,
+      var(--gradient-left) 0%,
+      var(--gradient-mid) 50%,
+      var(--gradient-right) 100%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+    font-weight: 600;
+    display: inline-block;
+  }
+
+  /* Fallback for browsers that do not support background-clip: text */
+  .no-bgclip .gradient-text {
+    color: var(--gradient-mid);
+    background: none;
+    -webkit-text-fill-color: unset;
+  }
+
+  /* Menu item prefix styling */
+  .menu-prefix {
+    color: var(--text-secondary);
+    font-weight: 500;
+    transition: color 0.2s ease;
+  }
+
+  .menu-prefix.active {
+    color: var(--brand-red);
+  }
+
+  /* Menu item suffix (gradient part) */
+  .menu-suffix {
+    font-weight: 600;
+  }
+
+  /* Keep menu items on single line */
+  .menu-item,
+  .main-nav a,
+  nav button {
+    white-space: nowrap;
+  }
+
+  /* ========================================
+     Page Background
+     ======================================== */
+  .page-background {
+    background: linear-gradient(135deg, #faf8f9 0%, #f8f6fa 50%, #f6f8fa 100%);
+    min-height: 100vh;
+  }
+
+  /* ========================================
+     Services Section
+     ======================================== */
+  .services-section {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .services-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 200px;
+    background: linear-gradient(
+      180deg,
+      rgba(91, 62, 117, 0.08) 0%,
+      rgba(76, 48, 53, 0.04) 50%,
+      transparent 100%
+    );
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .services-section > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ========================================
+     Tag Selected State
+     ======================================== */
+  .tag-selected {
+    @apply bg-gradient-to-br from-red-600 to-red-700 text-white border-transparent;
+    box-shadow: 0 4px 12px rgba(220, 38, 38, 0.3);
+  }
+
+  /* ========================================
+     Navigation Item
+     ======================================== */
+  .nav-item {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    padding: 0.25rem 0;
+  }
+
+  .nav-item::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--brand-red), var(--brand-rose));
+    transition: width 0.3s ease;
+  }
+
+  .nav-item:hover::after,
+  .nav-item.active::after {
+    width: 100%;
+  }
+
+  /* Ensure focus styles are visible on nav items */
+  .nav-item:focus-visible {
+    outline: 2px solid var(--brand-red);
+    outline-offset: 4px;
+    border-radius: 2px;
+  }
+
+  /* ========================================
+     Next Button
+     ======================================== */
+  .btn-next {
+    background: linear-gradient(135deg, var(--brand-red) 0%, var(--brand-red-dark) 100%);
+    transition: all 0.3s ease;
+  }
+
+  .btn-next:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(220, 38, 38, 0.4);
+  }
+
+  .btn-next:active {
+    transform: translateY(0);
+  }
+
+  /* ========================================
+     Glass Effect for Header
+     ======================================== */
+  .glass-effect {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+  }
+
+  /* ========================================
+     Wavy Underline (decorative)
+     ======================================== */
+  .nav-wavy-underline {
+    text-decoration: underline;
+    text-decoration-style: wavy;
+    text-decoration-color: var(--brand-red);
+    text-underline-offset: 4px;
+  }
+}
+
+/* ========================================
+   Global Styles
+   ======================================== */
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Selection color */
+::selection {
+  background-color: rgba(220, 38, 38, 0.2);
+  color: inherit;
+}
+
+/* Focus styles for accessibility */
+button:focus-visible,
+a:focus-visible {
+  outline: 2px solid var(--brand-red);
+  outline-offset: 2px;
+}
+
+/* ========================================
+   Print Styles
+   ======================================== */
+@media print {
+  .gradient-text {
+    color: var(--gradient-mid) !important;
+    background: none !important;
+    -webkit-text-fill-color: currentColor !important;
+  }
+  
+  .glass-effect {
+    background: white !important;
+    backdrop-filter: none !important;
+  }
+}
+
+/* ========================================
+   Reduced Motion Preferences
+   ======================================== */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+/* ========================================
+   High Contrast Mode Support
+   ======================================== */
+@media (prefers-contrast: high) {
+  .gradient-text {
+    color: #000000 !important;
+    background: none !important;
+    -webkit-text-fill-color: currentColor !important;
+    font-weight: 700;
+  }
+}
